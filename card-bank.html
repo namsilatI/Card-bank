@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/card-bank.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+    </style>
+</head>
+<body>
+    <div class="bg-color"></div>
+
+    <div class="payment-method">
+        <div class="payment-method_container">
+            <div class="payment-method_info">
+                <p>Account</p>
+                <img src="img/icons8-right-arrow-50.png" alt="arrow" class="payment-method_arrow">
+                <b>Payment methods</b>
+            </div>
+
+            <h1 class="payment-method_header">Choose your payment method</h1>
+
+            <div class="payment-method_variety variety-list">
+                <ul class="variety-list_items" id="variety-list"></ul>
+            </div>
+            
+            <div class="payment-method_buttons buttons-class">
+                <button class="buttons-class_add"><img src="img/icons8-card-32.png" alt="card" class="buttons-class_card" id="image">Add Payment Method</button>
+                <button class="buttons-class_submit">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-add">
+        <div class="card-add_preview"></div>
+        <div class="card-add_info info-parameters">
+            <ul class="info-parameters_list">
+                <li class="info-parameters_item item-info">
+                    <p class="item-info_title">Name</p>
+                    <input type="text" class="item-info_field">
+                </li>
+                <li class="info-parameters_item item-info">
+                    <p class="item-info_title">Card Number</p>
+                    <input type="number" class="item-info_field">
+                </li>
+                <li class="info-parameters_item item-info">
+                    <p class="item-info_title">Expiration</p>
+                    <input type="text" class="item-info_field">
+                </li>
+                <li class="info-parameters_item item-info">
+                    <p class="item-info_title">CVV</p>
+                    <input type="number" class="item-info_field">
+                </li>
+            </ul>
+        </div>
+        <div class="card-add_buttons buttons-class">
+            <button class="buttons-class_cancel">Cancel</button>
+            <button class="buttons-class_submit">Submit</button>
+        </div>
+    </div>
+
+    <script src="card-bank.js"></script>
+</body>
+</html>
