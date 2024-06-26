@@ -40,6 +40,9 @@ if (savedCards) {
 cards.forEach(function (card) {
     displayCard(card);
 });
+function formatCardNumber(e) {
+    e.target.value = e.target.value.replace(/\s?/g, '').replace(/(\d{4})/g, '$1 ').trim();
+}
 function addCard() {
     var name = document.getElementById('nameField').value;
     var cardNumber = parseInt(document.getElementById('numberField').value);
@@ -60,13 +63,22 @@ function displayCard(card) {
     var cardStatus = document.createElement("p");
     var cardDate = document.createElement("p");
     var li = document.createElement("li");
+    var cardInfoContainerRigth = document.createElement("div");
+    var cardInfoContainerleft = document.createElement("div");
+    cardNum.classList.add('items_cardNumber');
+    cardStatus.classList.add('items_cardStatus');
+    cardDate.classList.add('items_cardDate');
+    cardInfoContainerRigth.classList.add('items_cardInfoContainerRigth');
+    cardInfoContainerleft.classList.add('items_cardInfoContainerLeft');
+    cardInfoContainerRigth.appendChild(cardStatus);
+    cardInfoContainerRigth.appendChild(cardDate);
+    cardInfoContainerleft.appendChild(cardLogo);
+    cardInfoContainerleft.appendChild(cardNum);
     cardLogo.src = card.logo;
-    li.appendChild(cardLogo);
     cardNum.innerHTML = card.cardNumber.toString();
-    li.appendChild(cardNum);
     cardStatus.innerHTML = card.expInfo;
-    li.appendChild(cardStatus);
     cardDate.innerHTML = card.expiration;
-    li.appendChild(cardDate);
+    li.appendChild(cardInfoContainerleft);
+    li.appendChild(cardInfoContainerRigth);
     pay.appendChild(li);
 }
