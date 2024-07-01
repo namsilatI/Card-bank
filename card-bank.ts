@@ -57,6 +57,7 @@ cards.forEach(function(card){
 })
 const cardAdd = document.getElementById('cardAdd') as HTMLBodyElement;
 const cardAddButton = document.getElementById('buttonAdd') as HTMLBodyElement;
+const buttonBlock = document.getElementById('buttonBlock') as HTMLBodyElement;
 
 cardAddButton.addEventListener('click', function() {
     cardAdd.style.display = "block";
@@ -75,8 +76,8 @@ function addCard() {
 
     const newCard = new cardSelect(cardNumber, expiration, name, cvvNumber);
     cards.push(newCard);
+    buttonBlock.style.paddingTop = "40px";
     displayCard(newCard);
-
     localStorage.setItem("cards", JSON.stringify(cards));
 }
 

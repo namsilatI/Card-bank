@@ -42,6 +42,7 @@ cards.forEach(function (card) {
 });
 var cardAdd = document.getElementById('cardAdd');
 var cardAddButton = document.getElementById('buttonAdd');
+var buttonBlock = document.getElementById('buttonBlock');
 cardAddButton.addEventListener('click', function () {
     cardAdd.style.display = "block";
 });
@@ -56,8 +57,14 @@ function addCard() {
     }
     var newCard = new cardSelect(cardNumber, expiration, name, cvvNumber);
     cards.push(newCard);
+    buttonBlock.style.paddingTop = "40px";
     displayCard(newCard);
+    localStorage.setItem("buttonBlockPaddingTop", buttonBlock.style.paddingTop);
     localStorage.setItem("cards", JSON.stringify(cards));
+    var savedPaddingTop = localStorage.getItem("buttonBlockPaddingTop");
+    if (savedPaddingTop) {
+        buttonBlock.style.paddingTop = savedPaddingTop;
+    }
 }
 function displayCard(card) {
     var cardLogo = document.createElement("img");
