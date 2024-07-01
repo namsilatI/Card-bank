@@ -55,7 +55,12 @@ if (savedCards) {
 cards.forEach(function(card){
     displayCard(card)
 })
+const cardAdd = document.getElementById('cardAdd') as HTMLBodyElement;
+const cardAddButton = document.getElementById('buttonAdd') as HTMLBodyElement;
 
+cardAddButton.addEventListener('click', function() {
+    cardAdd.style.display = "block";
+})
 
 function addCard() {
     const name = (document.getElementById('nameField') as HTMLInputElement).value;
@@ -81,10 +86,13 @@ function displayCard(card: cardSelect) {
     const cardStatus = document.createElement("p");
     const cardDate = document.createElement("p");
     const li = document.createElement("li");
+    const checkMark = document.createElement("img");
 
     const cardInfoContainerRigth = document.createElement("div");
     const cardInfoContainerleft = document.createElement("div");
 
+    li.classList.add('border-gradient');
+    li.classList.add('border-gradient_purple');
     cardNum.classList.add('items_cardNumber');
     cardStatus.classList.add('items_cardStatus');
     cardDate.classList.add('items_cardDate');
@@ -104,5 +112,17 @@ function displayCard(card: cardSelect) {
     li.appendChild(cardInfoContainerRigth);
 
     pay.appendChild(li);
+
+    li.addEventListener('click', function() {
+        const allCardItems = document.querySelectorAll('.variety-list_items li');
+        allCardItems.forEach(e => {
+            if (e !== li) {
+                e.classList.remove('active');
+            }
+        });
+        li.classList.toggle('active');
+    });
 }
+
+
 

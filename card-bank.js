@@ -40,9 +40,11 @@ if (savedCards) {
 cards.forEach(function (card) {
     displayCard(card);
 });
-function formatCardNumber(e) {
-    e.target.value = e.target.value.replace(/\s?/g, '').replace(/(\d{4})/g, '$1 ').trim();
-}
+var cardAdd = document.getElementById('cardAdd');
+var cardAddButton = document.getElementById('buttonAdd');
+cardAddButton.addEventListener('click', function () {
+    cardAdd.style.display = "block";
+});
 function addCard() {
     var name = document.getElementById('nameField').value;
     var cardNumber = parseInt(document.getElementById('numberField').value);
@@ -63,8 +65,11 @@ function displayCard(card) {
     var cardStatus = document.createElement("p");
     var cardDate = document.createElement("p");
     var li = document.createElement("li");
+    var checkMark = document.createElement("img");
     var cardInfoContainerRigth = document.createElement("div");
     var cardInfoContainerleft = document.createElement("div");
+    li.classList.add('border-gradient');
+    li.classList.add('border-gradient_purple');
     cardNum.classList.add('items_cardNumber');
     cardStatus.classList.add('items_cardStatus');
     cardDate.classList.add('items_cardDate');
@@ -81,4 +86,13 @@ function displayCard(card) {
     li.appendChild(cardInfoContainerleft);
     li.appendChild(cardInfoContainerRigth);
     pay.appendChild(li);
+    li.addEventListener('click', function () {
+        var allCardItems = document.querySelectorAll('.variety-list_items li');
+        allCardItems.forEach(function (e) {
+            if (e !== li) {
+                e.classList.remove('active');
+            }
+        });
+        li.classList.toggle('active');
+    });
 }

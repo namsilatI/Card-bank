@@ -19,6 +19,13 @@
     width: $width;
 }
 
+@mixin buttonSetup($items){
+    display: flex;
+    align-items: center;
+    justify-content: $items;
+    width: 100%;
+}
+
 html {
     font-family: 'Montserrat';
     font-weight: 400;
@@ -41,6 +48,9 @@ body{
 }
 
 
+.card-add{
+    display: none;
+}
 .payment-method{
     @include w-h(31%, auto);
     background-color: white;
@@ -63,6 +73,35 @@ body{
             width: fit-content;
             padding: 7px 0 20px 0;
         }
+        .payment-method_buttons{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding-top: 20px;
+            gap: 20px;
+            .buttons-class_add{
+                @include buttonSetup(start);
+                padding: 50px 40px;
+                border-radius: 15px;
+                border: 2px solid gray;
+                background-color: transparent;
+                font-family: 'Montserrat';
+                font-weight: 500;
+                font-size: medium;
+                gap: 35px
+            }
+            .buttons-class_submit{
+                @include buttonSetup(center);
+                padding: 25px;
+                border-radius: 15px;
+                font-family: 'Montserrat';
+                font-weight: 500;
+                font-size: larger;
+                color: white;
+                background-color: rgb(134, 33, 218);
+            }
+        }
     }
     .payment-method_arrow{
         @include w-h(17px, 17px)
@@ -73,11 +112,20 @@ body{
     display: flex;
     flex-direction: column;
     gap: 20px;
-    li{
+    .border-gradient{
+        position: relative;
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
         list-style: none;
+        padding: 30px 30px 30px 40px;
+        gap: 5px;
+        border-radius: 15px;
+        border: 2px solid gray;
+        border-image-slice: 1;
+        border-radius: 15px;
+        z-index: 0;
+        box-sizing: border-box; 
         .items_cardInfoContainerLeft{
             @include cardInfoContainer;
             img {
@@ -89,7 +137,35 @@ body{
             .items_cardStatus{
                 width: 61px;
             }
+            .items_cardDate{
+                font-style: italic;
+                font-weight: 600;
+            }
         }
+    }
+    .border-gradient.active::before {
+        content: '';
+        position: absolute;
+        top: -2px;
+        right: -2px;
+        bottom: -2px;
+        left: -2px;
+        z-index: -1;
+        border-radius: inherit; 
+        background: linear-gradient(to left, #743ad5, #d53a9d, #000000);
+        padding: 5px; 
+        box-sizing: border-box;
+    }
+    .border-gradient.active::after {
+        content: '';
+        position: absolute;
+        top: 3px;
+        right: 3px;
+        bottom: 3px;
+        left: 3px;
+        z-index: -1;
+        border-radius: inherit; 
+        background: #fff; 
     }
 }
 
