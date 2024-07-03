@@ -71,7 +71,7 @@ body{
         .payment-method_header{
             font-weight: 400;
             width: fit-content;
-            padding: 10px 0 40px 0;
+            padding: 10px 0 0 0;
             font-size: 30px;
         }
         .payment-method_buttons{
@@ -79,6 +79,7 @@ body{
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            padding-top: 40px;
             gap: 40px;
             .buttons-class_add{
                 @include buttonSetup(start);
@@ -131,6 +132,9 @@ body{
             img {
                 padding-right: 13px;
             }
+            .items_cardNumber{
+                font-weight: 500;
+            }
         }
         .items_cardInfoContainerRigth{
             @include cardInfoContainer;
@@ -169,3 +173,6 @@ body{
     }
 }
 
+.with-padding {
+    padding-top: 40px; 
+}

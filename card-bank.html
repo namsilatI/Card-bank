@@ -22,6 +22,8 @@
 
             <h1 class="payment-method_header">Choose your payment method</h1>
 
+
+
             <div class="payment-method_variety variety-list">
                 <ul class="variety-list_items items" id="variety-list"></ul>
             </div>
@@ -43,7 +45,7 @@
                 </li>
                 <li class="info-parameters_item item-info">
                     <p class="item-info_title">Card Number</p>
-                    <input type="text" class="item-info_field" id="numberField">
+                    <input type="text" maxlength="19"  class="item-info_field" id="numberField">
                 </li>
                 <li class="info-parameters_item item-info">
                     <p class="item-info_title">Expiration</p>
@@ -51,12 +53,12 @@
                 </li>
                 <li class="info-parameters_item item-info">
                     <p class="item-info_title">CVV</p>
-                    <input type="text" class="item-info_field" id="cvvField">
+                    <input type="text" maxlength="5" class="item-info_field" id="cvvField">
                 </li>
             </ul>
         </div>
         <div class="card-add_buttons buttons-class">
-            <button class="buttons-class_cancel">Cancel</button>
+            <button class="buttons-class_cancel" id="buttCancel">Cancel</button>
             <button class="buttons-class_submit" id="buttSubmit">Submit</button>
         </div>
     </div>
