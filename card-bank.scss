@@ -35,6 +35,11 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100vh;
+}
+
+li{
+    list-style: none;
 }
 
 .bg-color{
@@ -47,14 +52,26 @@ body{
     z-index: -1;
 }
 
-
 .card-add{
-    display: none;
+    display: flex;
+    flex-direction: column;
+    margin-left: 100px;
+    background: white;
+    width: 550px;
+    .info-parameters_list{
+        display: flex;
+        #nameField{
+            width: 100%;
+            background-color: gray;
+        }
+    }
 }
+
 .payment-method{
     @include w-h(31%, auto);
     background-color: white;
     border-radius: 10px;
+
     .payment-method_container{
         padding: 65px;
         .payment-method_info{
@@ -101,12 +118,19 @@ body{
                 font-size: larger;
                 color: white;
                 background-color: rgb(134, 33, 218);
+                box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.444);
             }
         }
     }
     .payment-method_arrow{
         @include w-h(17px, 17px)
     }
+    .payment-method_variety {
+        height: 350px; 
+        overflow-y: auto; 
+        padding: 12px;
+    }
+    
 }
 
 .variety-list_items{
@@ -127,6 +151,7 @@ body{
         border-radius: 15px;
         z-index: 0;
         box-sizing: border-box; 
+        transition:all 0.3s;
         .items_cardInfoContainerLeft{
             @include cardInfoContainer;
             img {
@@ -140,6 +165,7 @@ body{
             @include cardInfoContainer;
             .items_cardStatus{
                 width: 61px;
+                font-weight: 500;
             }
             .items_cardDate{
                 font-style: italic;
@@ -159,6 +185,7 @@ body{
         background: linear-gradient(to left, #743ad5, #d53a9d, #000000);
         padding: 5px; 
         box-sizing: border-box;
+        transition:all 0.3s;
     }
     .border-gradient.active::after {
         content: '';
@@ -170,9 +197,23 @@ body{
         z-index: -1;
         border-radius: 11px; 
         background: #fff; 
+        transition:all 0.3s;
     }
 }
 
 .with-padding {
     padding-top: 40px; 
+}
+
+.items_checkMark {
+    position: absolute;
+    top: 30%;  
+    right: 5%;  
+    width: 50px;
+    height: 50px;
+    filter: grayscale(100%);
+}
+
+li.active .items_checkMark {
+    filter: grayscale(0%);
 }

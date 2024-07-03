@@ -1,14 +1,17 @@
 var visaIcon = "img/visa.png";
 var masterIcon = "img/mastercard.png";
+var check = "img/icons8-symantec-64.png";
 var pay = document.getElementById('variety-list');
 var cardSelect = /** @class */ (function () {
-    function cardSelect(cardNumber, expiration, name, cvvNumber) {
-        this.cardNumber = cardNumber;
+    function cardSelect(originalCardNumber, expiration, name, cvvNumber) {
+        this.originalCardNumber = originalCardNumber;
         this.expiration = expiration;
         this.name = name;
         this.cvvNumber = cvvNumber;
-        this.logo = this.getLogoFromNumber(cardNumber);
+        this.logo = this.getLogoFromNumber(originalCardNumber);
+        this.cardNumber = this.maskCardNumber(originalCardNumber);
         this.expInfo = this.checkExpiration(expiration) ? "Expired" : "Expires";
+        this.checkMark = check;
     }
     cardSelect.prototype.getLogoFromNumber = function (cardNumber) {
         var firstDigit = cardNumber.toString()[0];
@@ -28,6 +31,11 @@ var cardSelect = /** @class */ (function () {
         var currentDate = new Date();
         return expDate < currentDate;
     };
+    cardSelect.prototype.maskCardNumber = function (cardNumber) {
+        var cleanCardNumber = cardNumber.replace(/\s+/g, '');
+        var maskedCardNumber = 'XXXX XXXX XXXX ' + cleanCardNumber.slice(-4);
+        return maskedCardNumber;
+    };
     cardSelect.prototype.addCard = function () {
         var name = document.getElementById('nameField').value;
         var cardNumber = document.getElementById('numberField').value;
@@ -40,26 +48,19 @@ var cardSelect = /** @class */ (function () {
         function formattedCardNumber(cardNumber) {
             return cardNumber.replace(/\s+/g, '').replace(/(\d{4})/g, '$1 ').trim();
         }
-        function maskCardNumber(cardNumber) {
-            var cleanCardNumber = cardNumber.replace(/\s+/g, '');
-            var maskedCardNumber = 'XXXX XXXX XXXX ' + cleanCardNumber.slice(-4);
-            return maskedCardNumber;
-        }
         var formattedNumber = formattedCardNumber(cardNumber);
-        var maskedNumber = maskCardNumber(formattedNumber);
-        var newCard = new cardSelect(maskedNumber, expiration, name, cvvNumber);
+        var newCard = new cardSelect(formattedNumber, expiration, name, cvvNumber);
         cards.push(newCard);
         displayCard(newCard);
         localStorage.setItem("cards", JSON.stringify(cards));
         updatePadding();
-        return this.getLogoFromNumber(cardNumber);
     };
     return cardSelect;
 }());
 var cards = [];
 var addButton = document.getElementById('buttSubmit');
 addButton.addEventListener('click', function () {
-    var newCard = new cardSelect('', '', '', ''); // Pass empty strings or default values as placeholders
+    var newCard = new cardSelect('', '', '', '');
     newCard.addCard();
 });
 var savedCards = localStorage.getItem('cards');
@@ -75,7 +76,7 @@ var cardAddButton = document.getElementById('buttonAdd');
 var buttonBlock = document.getElementById('buttonBlock');
 var cancelButton = document.getElementById('buttCancel');
 cardAddButton.addEventListener('click', function () {
-    cardAdd.style.display = "block";
+    cardAdd.style.display = "flex";
 });
 cancelButton.addEventListener('click', function () {
     cardAdd.style.display = "none";
@@ -86,6 +87,7 @@ function displayCard(card) {
     var cardStatus = document.createElement("p");
     var cardDate = document.createElement("p");
     var li = document.createElement("li");
+    var checkMark = document.createElement("img");
     var cardInfoContainerRigth = document.createElement("div");
     var cardInfoContainerleft = document.createElement("div");
     li.classList.add('border-gradient');
@@ -93,6 +95,7 @@ function displayCard(card) {
     cardNum.classList.add('items_cardNumber');
     cardStatus.classList.add('items_cardStatus');
     cardDate.classList.add('items_cardDate');
+    checkMark.classList.add('items_checkMark');
     cardInfoContainerRigth.classList.add('items_cardInfoContainerRigth');
     cardInfoContainerleft.classList.add('items_cardInfoContainerLeft');
     cardInfoContainerRigth.appendChild(cardStatus);
@@ -103,6 +106,8 @@ function displayCard(card) {
     cardNum.innerHTML = card.cardNumber;
     cardStatus.innerHTML = card.expInfo;
     cardDate.innerHTML = card.expiration;
+    checkMark.src = card.checkMark;
+    li.appendChild(checkMark);
     li.appendChild(cardInfoContainerleft);
     li.appendChild(cardInfoContainerRigth);
     pay.appendChild(li);
@@ -124,3 +129,27 @@ function updatePadding() {
         pay.classList.remove('with-padding');
     }
 }
+var numberField = document.getElementById('numberField');
+numberField.addEventListener('input', function (e) {
+    var input = e.target;
+    var value = input.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+    var cursorPosition = input.selectionStart;
+    var beforeCursor = value.substring(0, cursorPosition).replace(/\D/g, '');
+    var formattedValue = '';
+    for (var i = 0; i < value.length; i++) {
+        if (i > 0 && i % 4 === 0) {
+            formattedValue += ' ';
+        }
+        formattedValue += value[i];
+    }
+    var formattedBeforeCursor = '';
+    for (var i = 0; i < beforeCursor.length; i++) {
+        if (i > 0 && i % 4 === 0) {
+            formattedBeforeCursor += ' ';
+        }
+        formattedBeforeCursor += beforeCursor[i];
+    }
+    input.value = formattedValue;
+    cursorPosition = formattedBeforeCursor.length;
+    input.setSelectionRange(cursorPosition, cursorPosition);
+});

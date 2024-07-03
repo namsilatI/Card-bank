@@ -22,8 +22,6 @@
 
             <h1 class="payment-method_header">Choose your payment method</h1>
 
-
-
             <div class="payment-method_variety variety-list">
                 <ul class="variety-list_items items" id="variety-list"></ul>
             </div>
@@ -39,22 +37,26 @@
         <div class="card-add_preview"></div>
         <div class="card-add_info info-parameters">
             <ul class="info-parameters_list">
-                <li class="info-parameters_item item-info">
-                    <p class="item-info_title">Name</p>
-                    <input type="text" class="item-info_field" id="nameField">
-                </li>
-                <li class="info-parameters_item item-info">
-                    <p class="item-info_title">Card Number</p>
-                    <input type="text" maxlength="19"  class="item-info_field" id="numberField">
-                </li>
-                <li class="info-parameters_item item-info">
-                    <p class="item-info_title">Expiration</p>
-                    <input type="text" class="item-info_field" id="expField">
-                </li>
-                <li class="info-parameters_item item-info">
-                    <p class="item-info_title">CVV</p>
-                    <input type="text" maxlength="5" class="item-info_field" id="cvvField">
-                </li>
+                <div class="info-parameters_leftSide">
+                    <li class="info-parameters_item item-info">
+                        <p class="item-info_title">Name</p>
+                        <input type="text" class="item-info_field" id="nameField">
+                    </li>
+                    <li class="info-parameters_item item-info">
+                        <p class="item-info_title">Card Number</p>
+                        <input type="text" maxlength="19"  class="item-info_field" id="numberField">
+                    </li>
+                </div>
+                <div class="info-parameters_rightSide">
+                    <li class="info-parameters_item item-info">
+                        <p class="item-info_title">Expiration</p>
+                        <input type="text" maxlength="5" class="item-info_field" id="expField">
+                    </li>
+                    <li class="info-parameters_item item-info">
+                        <p class="item-info_title">CVV</p>
+                        <input type="text" maxlength="3" class="item-info_field" id="cvvField">
+                    </li>
+                </div>
             </ul>
         </div>
         <div class="card-add_buttons buttons-class">
