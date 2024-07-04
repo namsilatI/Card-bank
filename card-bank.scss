@@ -59,7 +59,9 @@ li{
     margin-left: 100px;
     background: white;
     width: 600px;
-    height: 300px;
+    height: 400px;
+    padding: 30px;
+    border-radius: 10px;
     .info-parameters_list{
         display: flex;
         justify-content: space-around;
@@ -68,7 +70,7 @@ li{
             font-weight: 500;
         }
         #nameField, #numberField{
-            width: 300px;
+            width: 250px;
             background-color: rgb(201, 201, 201);
             height: 35px;
             font-size: larger;
@@ -77,11 +79,39 @@ li{
         }
         #expField, #cvvField{
             background-color: rgb(201, 201, 201);
+            width: 200px;
             border-radius: 5px;
             height: 35px;
             font-size: larger;
             padding: 7px;
         }
+    }
+.card-add_buttons{
+        display: flex;
+        gap: 20px;
+        padding: 30px 20px 0 20px;
+        justify-content: space-between;
+        .buttons-class_cancel{
+            color: #8621da;
+            padding: 25px;
+            font-size: larger;
+            font-weight: 500;
+            width: 40%;
+            border-radius: 15px;
+            background-color: white;
+            box-shadow: 2px 5px 5px rgba(0, 0, 0, .444);
+        }
+        .buttons-class_submit{
+            color: white;
+            padding: 25px;
+            font-size: larger;
+            font-weight: 500;
+            width: 40%;
+            border-radius: 15px;
+            background-color: #8621da;
+            box-shadow: 2px 5px 5px rgba(0, 0, 0, .444);
+        }
+
     }
 }
 
