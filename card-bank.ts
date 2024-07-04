@@ -76,8 +76,10 @@ type TypeArray = cardSelect[];
 
 let cards: TypeArray = [];
 
+const paymentVariety = document.getElementById('paymentVariety') as HTMLBodyElement;
 const addButton = document.getElementById('buttSubmit') as HTMLBodyElement;
 addButton.addEventListener('click', function() {
+    paymentVariety.style.display = "block";
     const newCard = new cardSelect('', '', '', '');
     newCard.addCard();
 });
@@ -140,7 +142,7 @@ function displayCard(card: cardSelect) {
     li.appendChild(cardInfoContainerleft);
     li.appendChild(cardInfoContainerRigth);
 
-    pay.appendChild(li);
+    pay.insertBefore(li, pay.firstChild);
 
     li.addEventListener('click', function() {
         const allCardItems = document.querySelectorAll('.variety-list_items li');
@@ -155,6 +157,7 @@ function displayCard(card: cardSelect) {
 
 function updatePadding() {
     if (cards.length > 0) {
+        paymentVariety.style.display = "block";
         pay.classList.add('with-padding');
     } else {
         pay.classList.remove('with-padding');
@@ -184,6 +187,20 @@ numberField.addEventListener('input', function(e){
     input.value = formattedValue;
     cursorPosition = formattedBeforeCursor.length;
     input.setSelectionRange(cursorPosition, cursorPosition);
+});
+
+const expField = document.getElementById('expField') as HTMLInputElement;
+expField.addEventListener('input', function(e){
+    let input = e.target as HTMLInputElement;
+    let value = input.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+    let formattedValue = '';
+    for (let i = 0; i < value.length; i++) {
+        if (i > 0 && i % 2 === 0) {
+            formattedValue += '/';
+        }
+        formattedValue += value[i];
+    }
+    input.value = formattedValue;
 });
 
 

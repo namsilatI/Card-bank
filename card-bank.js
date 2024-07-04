@@ -58,8 +58,10 @@ var cardSelect = /** @class */ (function () {
     return cardSelect;
 }());
 var cards = [];
+var paymentVariety = document.getElementById('paymentVariety');
 var addButton = document.getElementById('buttSubmit');
 addButton.addEventListener('click', function () {
+    paymentVariety.style.display = "block";
     var newCard = new cardSelect('', '', '', '');
     newCard.addCard();
 });
@@ -110,7 +112,7 @@ function displayCard(card) {
     li.appendChild(checkMark);
     li.appendChild(cardInfoContainerleft);
     li.appendChild(cardInfoContainerRigth);
-    pay.appendChild(li);
+    pay.insertBefore(li, pay.firstChild);
     li.addEventListener('click', function () {
         var allCardItems = document.querySelectorAll('.variety-list_items li');
         allCardItems.forEach(function (e) {
@@ -123,6 +125,7 @@ function displayCard(card) {
 }
 function updatePadding() {
     if (cards.length > 0) {
+        paymentVariety.style.display = "block";
         pay.classList.add('with-padding');
     }
     else {
@@ -152,4 +155,17 @@ numberField.addEventListener('input', function (e) {
     input.value = formattedValue;
     cursorPosition = formattedBeforeCursor.length;
     input.setSelectionRange(cursorPosition, cursorPosition);
+});
+var expField = document.getElementById('expField');
+expField.addEventListener('input', function (e) {
+    var input = e.target;
+    var value = input.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+    var formattedValue = '';
+    for (var i = 0; i < value.length; i++) {
+        if (i > 0 && i % 2 === 0) {
+            formattedValue += '/';
+        }
+        formattedValue += value[i];
+    }
+    input.value = formattedValue;
 });

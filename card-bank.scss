@@ -55,14 +55,32 @@ li{
 .card-add{
     display: flex;
     flex-direction: column;
+    justify-content: center;
     margin-left: 100px;
     background: white;
-    width: 550px;
+    width: 600px;
+    height: 300px;
     .info-parameters_list{
         display: flex;
-        #nameField{
-            width: 100%;
-            background-color: gray;
+        justify-content: space-around;
+        .item-info_title{
+            padding: 10px 0 10px 0;
+            font-weight: 500;
+        }
+        #nameField, #numberField{
+            width: 300px;
+            background-color: rgb(201, 201, 201);
+            height: 35px;
+            font-size: larger;
+            border-radius: 5px;
+            padding: 7px;
+        }
+        #expField, #cvvField{
+            background-color: rgb(201, 201, 201);
+            border-radius: 5px;
+            height: 35px;
+            font-size: larger;
+            padding: 7px;
         }
     }
 }
@@ -126,11 +144,14 @@ li{
         @include w-h(17px, 17px)
     }
     .payment-method_variety {
-        height: 350px; 
+        display: none;
+        max-height: 350px; 
         overflow-y: auto; 
-        padding: 12px;
+        padding: 20px;
     }
-    
+    .payment-method_variety::-webkit-scrollbar{
+        width: 0;
+    }
 }
 
 .variety-list_items{
@@ -202,7 +223,7 @@ li{
 }
 
 .with-padding {
-    padding-top: 40px; 
+    padding-top: 20px; 
 }
 
 .items_checkMark {
