@@ -51,17 +51,39 @@ li{
     background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,81,65,0.9948354341736695) 100%);
     z-index: -1;
 }
-
+.card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    animation: card-add-ani 1s forwards;
+    opacity: 0;
+    @keyframes card-add-ani {
+        0% {
+            transform: translateX(-15%);
+            opacity: 0;
+        }
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+            margin-left: 200px;
+        }
+    }
+    .card-add_preview{
+        background-color: white;
+        padding: 50px 65px 0px 66px;
+        margin-left: -180px;
+    }
 .card-add{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-left: 100px;
     background: white;
     width: 600px;
     height: 400px;
     padding: 30px;
-    border-radius: 10px;
+    border-radius: 0px 0px 10px 10px;
+    transform: translateX(-15%);
     .info-parameters_list{
         display: flex;
         justify-content: space-around;
@@ -86,7 +108,7 @@ li{
             padding: 7px;
         }
     }
-.card-add_buttons{
+    .card-add_buttons{
         display: flex;
         gap: 20px;
         padding: 30px 20px 0 20px;
@@ -111,15 +133,15 @@ li{
             background-color: #8621da;
             box-shadow: 2px 5px 5px rgba(0, 0, 0, .444);
         }
-
     }
+}
 }
 
 .payment-method{
     @include w-h(31%, auto);
     background-color: white;
     border-radius: 10px;
-
+    transition: transform 1s;
     .payment-method_container{
         padding: 65px;
         .payment-method_info{
@@ -155,7 +177,7 @@ li{
                 font-family: 'Montserrat';
                 font-weight: 500;
                 font-size: medium;
-                gap: 35px
+                gap: 35px;
             }
             .buttons-class_submit{
                 @include buttonSetup(center);
@@ -171,7 +193,7 @@ li{
         }
     }
     .payment-method_arrow{
-        @include w-h(17px, 17px)
+        @include w-h(17px, 17px);
     }
     .payment-method_variety {
         display: none;
@@ -182,6 +204,10 @@ li{
     .payment-method_variety::-webkit-scrollbar{
         width: 0;
     }
+}
+
+.payment-method.shifted {
+    transform: translateX(-5%); 
 }
 
 .variety-list_items{

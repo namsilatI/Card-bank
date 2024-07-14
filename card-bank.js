@@ -37,7 +37,7 @@ var cardSelect = /** @class */ (function () {
         return maskedCardNumber;
     };
     cardSelect.prototype.addCard = function () {
-        var name = document.getElementById('nameField').value;
+        var cardName = document.getElementById('nameField').value;
         var cardNumber = document.getElementById('numberField').value;
         var expiration = document.getElementById('expField').value;
         var cvvNumber = document.getElementById('cvvField').value;
@@ -49,11 +49,15 @@ var cardSelect = /** @class */ (function () {
             return cardNumber.replace(/\s+/g, '').replace(/(\d{4})/g, '$1 ').trim();
         }
         var formattedNumber = formattedCardNumber(cardNumber);
-        var newCard = new cardSelect(formattedNumber, expiration, name, cvvNumber);
+        var newCard = new cardSelect(formattedNumber, expiration, cardName, cvvNumber);
         cards.push(newCard);
         displayCard(newCard);
         localStorage.setItem("cards", JSON.stringify(cards));
         updatePadding();
+        document.getElementById('nameField').value = '';
+        document.getElementById('numberField').value = '';
+        document.getElementById('expField').value = '';
+        document.getElementById('cvvField').value = '';
     };
     return cardSelect;
 }());
@@ -73,15 +77,18 @@ cards.forEach(function (card) {
     displayCard(card);
 });
 updatePadding();
-var cardAdd = document.getElementById('cardAdd');
+var cardAdd = document.getElementById('card');
 var cardAddButton = document.getElementById('buttonAdd');
 var buttonBlock = document.getElementById('buttonBlock');
 var cancelButton = document.getElementById('buttCancel');
+var paymentMethod = document.querySelector('.payment-method');
 cardAddButton.addEventListener('click', function () {
     cardAdd.style.display = "flex";
+    paymentMethod.classList.add('shifted');
 });
 cancelButton.addEventListener('click', function () {
     cardAdd.style.display = "none";
+    paymentMethod.classList.remove('shifted');
 });
 function displayCard(card) {
     var cardLogo = document.createElement("img");
@@ -169,3 +176,30 @@ expField.addEventListener('input', function (e) {
     }
     input.value = formattedValue;
 });
+var cvvField = document.getElementById('cvvField');
+cvvField.addEventListener('input', function (e) {
+    var input = e.target;
+    var value = input.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+    var formattedValue = '';
+    for (var i = 0; i < value.length; i++) {
+        formattedValue += value[i];
+    }
+    input.value = formattedValue;
+});
+numberField.addEventListener('input', function (e) {
+    updateCardPreview();
+});
+function updateCardPreview() {
+    var cardNumberInput = document.getElementById('numberField').value.replace(/\s+/g, '');
+    var cardPreview = document.getElementById('card-preview');
+    var firstDigit = cardNumberInput.toString()[0];
+    if (firstDigit === '4') {
+        cardPreview.src = "img/visa-card.png";
+    }
+    else if (firstDigit === '5') {
+        cardPreview.src = "img/mastercard-card.png";
+    }
+    else {
+        cardPreview.src = "img/non-card.png";
+    }
+}

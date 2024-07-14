@@ -48,12 +48,12 @@ class cardSelect {
         return maskedCardNumber;
     }
 
-    addCard() {
-        const name = (document.getElementById('nameField') as HTMLInputElement).value;
+    addCard() { 
+        const cardName = (document.getElementById('nameField') as HTMLInputElement).value;
         const cardNumber = (document.getElementById('numberField') as HTMLInputElement).value;
         const expiration = (document.getElementById('expField') as HTMLInputElement).value;
         const cvvNumber = (document.getElementById('cvvField') as HTMLInputElement).value;
-                
+
         if (!cardNumber || !expiration || !cvvNumber) {
             alert("Please fill in all fields correctly.");
             return;
@@ -61,14 +61,17 @@ class cardSelect {
         function formattedCardNumber(cardNumber: string): string{
             return cardNumber.replace(/\s+/g, '').replace(/(\d{4})/g, '$1 ').trim();
         }
-    
         const formattedNumber = formattedCardNumber(cardNumber);
-    
-        const newCard = new cardSelect(formattedNumber, expiration, name, cvvNumber);
+        const newCard = new cardSelect(formattedNumber, expiration, cardName, cvvNumber);
         cards.push(newCard);
         displayCard(newCard);
         localStorage.setItem("cards", JSON.stringify(cards));
         updatePadding();
+
+        (document.getElementById('nameField') as HTMLInputElement).value = '';
+        (document.getElementById('numberField') as HTMLInputElement).value = '';
+        (document.getElementById('expField') as HTMLInputElement).value = '';
+        (document.getElementById('cvvField') as HTMLInputElement).value = '';
     }
 }
 
@@ -94,17 +97,19 @@ cards.forEach(function(card){
 })
 updatePadding();
 
-const cardAdd = document.getElementById('cardAdd') as HTMLBodyElement;
+const cardAdd = document.getElementById('card') as HTMLBodyElement;
 const cardAddButton = document.getElementById('buttonAdd') as HTMLBodyElement;
 const buttonBlock = document.getElementById('buttonBlock') as HTMLBodyElement;
 const cancelButton = document.getElementById('buttCancel') as HTMLBodyElement;
-
+const paymentMethod = document.querySelector('.payment-method') as HTMLBodyElement;
 
 cardAddButton.addEventListener('click', function() {
     cardAdd.style.display = "flex";
+    paymentMethod.classList.add('shifted');
 })
 cancelButton.addEventListener('click', function(){
     cardAdd.style.display = "none";
+    paymentMethod.classList.remove('shifted');
 });
 
 
@@ -203,6 +208,33 @@ expField.addEventListener('input', function(e){
     input.value = formattedValue;
 });
 
+const cvvField = document.getElementById('cvvField') as HTMLInputElement;
+cvvField.addEventListener('input', function(e){
+    let input = e.target as HTMLInputElement;
+    let value = input.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+    let formattedValue = '';
+    for (let i = 0; i < value.length; i++) {
+        formattedValue += value[i];
+    }
+    input.value = formattedValue;
+});
+
+numberField.addEventListener('input', function(e){
+    updateCardPreview();
+});
+
+function updateCardPreview() {
+    const cardNumberInput = (document.getElementById('numberField') as HTMLInputElement).value.replace(/\s+/g, '');
+    const cardPreview = document.getElementById('card-preview') as HTMLImageElement;
+    const firstDigit = cardNumberInput.toString()[0];
+    if (firstDigit  === '4') {
+        cardPreview.src = "img/visa-card.png"; 
+    } else if (firstDigit  === '5') {
+        cardPreview.src = "img/mastercard-card.png"; 
+    } else {
+        cardPreview.src = "img/non-card.png"; 
+    }
+}
 
 
 
